@@ -62,37 +62,38 @@ read:
         printf("\nEnter two large prime numbers p and q: ");
         scanf("%d%d", &p, &q);
     }while(p == q);
-        n = p * q;
-        z = (p - 1) * (q - 1);
-        printf("\nn = %d, z = %d", n, z);
-        if(n < 120){
-            printf("\nPlease keep n >= 120");
-            goto read;
-        }
+    
+    n = p * q;
+    z = (p - 1) * (q - 1);
+    printf("\nn = %d, z = %d", n, z);
+    if(n < 120){
+        printf("\nPlease keep n >= 120");
+        goto read;
+    }
 
-        e = findEncryptionKey(z);
-        d = findDecryptionKey(e, z);
+    e = findEncryptionKey(z);
+    d = findDecryptionKey(e, z);
 
-        printf("\nPublic key = {%d, %d}", e, n);
-        printf("\nPrivate key = {%d, %d}", d, n);
+    printf("\nPublic key = {%d, %d}", e, n);
+    printf("\nPrivate key = {%d, %d}", d, n);
 
-        printf("\nEnter a string consisting of only letters a-z, A-Z: ");
-        scanf("%s", msg);
+    printf("\nEnter a string consisting of only letters a-z, A-Z: ");
+    scanf("%s", msg);
 
-        for(i = 0; i < strlen(msg); i++){
-            plainText[i] = msg[i];
-            printf("\n%c = %d: ", plainText[i], plainText[i]);
+    for(i = 0; i < strlen(msg); i++){
+        plainText[i] = msg[i];
+        printf("\n%c = %d: ", plainText[i], plainText[i]);
         }
-        printf("\n\nCipher text: \n");
-        for(i = 0; i < strlen(msg); i++){
-            cipherText[i] = xpowy_modn(plainText[i], e, n);
-            printf("\n%d = %c", cipherText[i], cipherText[i]);
-        }
-        printf("\n\nPlain Text: \n");
-        for(i = 0; i < strlen(msg); i++){
-            plainText[i] = xpowy_modn(cipherText[i], d, n);
-            printf("\n%c = %d", plainText[i], plainText[i]);
-        }
+    printf("\n\nCipher text: \n");
+    for(i = 0; i < strlen(msg); i++){
+        cipherText[i] = xpowy_modn(plainText[i], e, n);
+        printf("\n%d = %c", cipherText[i], cipherText[i]);
+    }
+    printf("\n\nPlain Text: \n");
+    for(i = 0; i < strlen(msg); i++){
+        plainText[i] = xpowy_modn(cipherText[i], d, n);
+        printf("\n%c = %d", plainText[i], plainText[i]);
+    }
 
     return 0;
 }
